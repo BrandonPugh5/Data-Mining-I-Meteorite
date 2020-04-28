@@ -94,9 +94,6 @@ columnList3=['nametype_Relict', 'nametype_Valid', 'mass_0', 'mass_1-2',
        'year_1851-1900', 'year_1901-1950', 'year_<1750',
        'year_>2000']
 
-#This is the only part not working and I thinkit has to do with columnList3 right above
-
-
 """
 file = open('columns.txt', 'w+')
 try:
