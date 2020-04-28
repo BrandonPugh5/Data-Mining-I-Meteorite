@@ -53,7 +53,7 @@ adjustedTData.loc[(meteoriteData['mass'] > 35) & (meteoriteData['mass'] <= 50), 
 adjustedTData.loc[(meteoriteData['mass'] > 50) & (meteoriteData['mass'] <= 100), 'mass'] = '50-100'
 adjustedTData.loc[(meteoriteData['mass'] > 100) & (meteoriteData['mass'] <= 300), 'mass'] = '100-300'
 adjustedTData.loc[(meteoriteData['mass'] > 300) & (meteoriteData['mass'] <= 1000), 'mass'] = '300-1000'
-adjustedTData.loc[meteoriteData['mass'] > 1000, 'mass'] = '<1000'
+adjustedTData.loc[meteoriteData['mass'] > 1000, 'mass'] = '>1000'
 
 adjustedTData['mass'] =  adjustedTData['mass'].astype(str)
 
@@ -89,15 +89,15 @@ print(colList)
 columnList3=['nametype_Relict', 'nametype_Valid', 'mass_0', 'mass_1-2',
        'mass_10-35', 'mass_100-300', 'mass_2-3', 'mass_3-4',
        'mass_300-1000', 'mass_35-50', 'mass_4-5', 'mass_5-6',
-       'mass_50-100', 'mass_6-10', 'mass_<1', 'mass_<1000',
-       'mass_No Record Found', 'year_1750-1800', 'year_1801-1850',
-       'year_1851-1900', 'year_1901-1950', 'year_1951-2000', 'year_<1750',
+       'mass_50-100', 'mass_6-10', 'mass_<1', 'mass_>1000',
+       'mass_No Record Found', 'year_1801-1850', 'year_1750-1800',
+       'year_1851-1900', 'year_1901-1950', 'year_<1750',
        'year_>2000']
 
 #This is the only part not working and I thinkit has to do with columnList3 right above
 
 
-
+"""
 file = open('columns.txt', 'w+')
 try:
     for col_name in meteorite_with_dummies.columns:
@@ -109,19 +109,19 @@ except Exception as ex:
     print(ex)
 finally:
     file.close()
-
-
-
+"""
 
 X=meteorite_with_dummies[columnList3]
-Y=meteorite_with_dummies.country_Ukraine
+Y=meteorite_with_dummies[['country_United_States', 'year_1951-2000']]
+
+
 
 print(X[0:10])
 print(Y[0:10])
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3,random_state=1)
-c5 = DecisionTreeClassifier(criterion='entropy', max_depth=4)
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.2)
+c5 = DecisionTreeClassifier(criterion='entropy', max_depth=5)
 c5 = c5.fit(X_train,Y_train)
 Y_pred = c5.predict(X_test)
 
@@ -145,7 +145,7 @@ nbC = nbC.fit(X, Y)
 print(nbC.predict(X))
 print(nbC.predict_proba(X))
 print(nbC.score(X,Y))
-"""
+
 
 
 
