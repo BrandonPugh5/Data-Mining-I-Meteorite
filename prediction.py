@@ -19,7 +19,7 @@ from sklearn.externals.six import StringIO
 import os
 
 
-os.chdir(r'D:\School\Spring 2020\Data Mining I\Final Project\Data-Mining-I-Meteorite')
+#os.chdir(r'C:\Users\Aaron Gunter\Documents\Rowan\Data Mining\Final project')
 pd.options.display.width = 0
 meteoriteData = pd.read_csv("Meteorite_Landings.csv")
 
@@ -86,22 +86,40 @@ print(meteorite_with_dummies.shape)
 colList = meteorite_with_dummies.columns
 print(colList)
 
-columnList3=[['nametype_Relict', 'nametype_Valid', 'mass_0', 'mass_1-2',
+columnList3=['nametype_Relict', 'nametype_Valid', 'mass_0', 'mass_1-2',
        'mass_10-35', 'mass_100-300', 'mass_2-3', 'mass_3-4',
        'mass_300-1000', 'mass_35-50', 'mass_4-5', 'mass_5-6',
        'mass_50-100', 'mass_6-10', 'mass_<1', 'mass_<1000',
        'mass_No Record Found', 'year_1750-1800', 'year_1801-1850',
        'year_1851-1900', 'year_1901-1950', 'year_1951-2000', 'year_<1750',
-       'year_>2000', 'country']]
+       'year_>2000']
 
 #This is the only part not working and I thinkit has to do with columnList3 right above
+
+
+
+file = open('columns.txt', 'w+')
+try:
+    for col_name in meteorite_with_dummies.columns:
+        file.write(col_name + '\n')
+
+except Exception as ex:
+    print('encountered error')
+    print(type(ex))
+    print(ex)
+finally:
+    file.close()
+
+
+
+
 X=meteorite_with_dummies[columnList3]
-Y=meteorite_with_dummies.country
-"""
+Y=meteorite_with_dummies.country_Ukraine
+
 print(X[0:10])
 print(Y[0:10])
-"""
-"""
+
+
 X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3,random_state=1)
 c5 = DecisionTreeClassifier(criterion='entropy', max_depth=4)
 c5 = c5.fit(X_train,Y_train)
@@ -120,9 +138,7 @@ graph.write_png('meteoriteTree.png')
 
 
 """
-"""
 Naive Bayes Classification
-"""
 """
 nbC = BernoulliNB(alpha = 0)
 nbC = nbC.fit(X, Y)
